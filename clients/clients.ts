@@ -2,7 +2,9 @@ interface Response {
   data: any[];
 }
 interface Products {
+  limit: number;
   products: any[];
+  total: number;
 }
 
 export function getProducts(resp: Products, def = null) {

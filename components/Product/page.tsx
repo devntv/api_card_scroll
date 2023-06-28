@@ -8,7 +8,7 @@ import Tooltip from '@mui/joy/Tooltip';
 import Typography from '@mui/joy/Typography';
 import { Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './styles.module.css';
 
 interface ProductProps {
@@ -108,4 +108,4 @@ const Product: React.FC<ProductProps> = ({ id, thumbnail, price, title, brand, r
     )
 }
 
-export default Product
+export default memo(Product)
