@@ -31,7 +31,7 @@ const BodyData: React.FC = () => {
     const [loadMore, setLoadMore] = useState(false)
     const [limit, setLimit] = useState(DEFAULT_FETCH_LIMIT)
     const [products, setProducts] = useState<Product[]>([]);
-    const [notFoundLimit, setNotFoundLimit] = useState<number>()
+    const [notFoundLimit, setNotFoundLimit] = useState()
 
 
     const debouncedLimit = useDebounce(limit, 1000)
@@ -87,7 +87,7 @@ const BodyData: React.FC = () => {
     //         observeLoadMore(loadMoreRef.current);
     //     }
     // }, [loadMore, observeLoadMore]);
-
+    console.log(notFoundLimit && notFoundLimit <= 0)
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
@@ -116,7 +116,7 @@ const BodyData: React.FC = () => {
                             <Product {...product} />
                         </Grid>
                     ))}
-                    {notFoundLimit && notFoundLimit <= 0 && <Typography className={styles.notfound} >Not found result.</Typography>}
+                    {notFoundLimit === 0 && <Typography className={styles.notfound}>Not found result.</Typography>}
                 </Grid>
                 <div ref={loadMoreRef}  >
                     {loadMore && <Loading content='loading' />}

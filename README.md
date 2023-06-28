@@ -1,34 +1,107 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Burningbros assignment
 
-## Getting Started
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb1.png)
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb2.png)
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb3.png)
 
-First, run the development server:
+### main Tech Stack:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+`react` `mui`, `next`
+
+## Features
+
+- Infinite Scrolling
+- Searching product name
+- Display list of products,...
+- Fetch and get datas from [dummyjson][f1]
+- Easy to maintain and new features,...
+
+# structure
+
+```
+projects
+├── components
+│   ├── BodyData
+|   └── Header
+|   └── Loading
+|   └── Logo
+|   └── Product
+├── clients
+|   └── clients.ts
+|   └── index.ts
+|   └── GetProdcutsClient.ts
+├── constants
+|   └── index.ts
+|   └── defaultNumb.ts
+├── hooks
+|   └── index.ts
+|   └── useTextHeaderDelay.ts
+|   └── useInfiniteScroll.ts
+|   └── useDebounce.ts
+├── src
+| └── app
+|     └── layout.tsx
+|     ├── page.tsx
+|     └── page.module.tsx
+|     └── globals.css
+|     └── favicon.ico
+└── data
+|    └── headerData.ts
+|    └── index.ts
+├──public
+|
+└── tsconfig.json
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#Desciption
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+By default, we set the constant limit variable to 20 (`DEFAULT_FETCH_LIMIT = 20`). This allows us to fetch a quantity of 20 products from the API. Additionally, we implement infinite scrolling to dynamically load another set of 20 products from the API as the user scrolls.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+We have organized the project's constants in the constant (`/constants`) directory, allowing us to easily maintain or modify them based on specific features. Additionally, the client directory (`/clients`) handles data fetching from the API and includes functions with various methods.
 
-## Learn More
+Remaining folders like `/hooks`, `/data`, `/service` will be essential for future developed features.
 
-To learn more about Next.js, take a look at the following resources:
+## Installation and run
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Make sure you have `Node.js` installed. If not, install `Node.js` [here][nl]. Next, you can check the version of Node.js installed on your system by using the command `node -v`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. install git and run
 
-## Deploy on Vercel
+```sh
+  git clone  https://github.com/devntv/burningbross_assignment.git
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. at the root directory of the project -> run
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+    npm i
+```
+
+3. and then please run
+
+```sh
+    npm run dev
+```
+
+or can visit: `https://burningbross-assignment-vinh.vercel.app/`
+
+## Plugins
+
+| Plugin     | version |
+| ---------- | ------- |
+| node       | v18.6   |
+| React      | 18.2.0  |
+| Next       | 13.4.7  |
+| uuid       | 9.0.0   |
+| typescript | 5.1.3   |
+| mui        | 5.13.6  |
+
+## License
+
+MIT
+
+**devntv!**
+
+[f1]: https://dummyjson.com/docs/products
+[nl]: https://nodejs.org
