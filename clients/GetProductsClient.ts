@@ -6,9 +6,22 @@ const GetAllProductsClient = async () => {
   const data = await response.json();
   return data;
 };
-const GetPerPageProductsClient = async (limit: number) => {
+const GetPerPageProductsClient = async (
+  limit: number,
+  query: string | number = "f"
+) => {
+  console.log("qq", query);
+
   const response = await requestData(
-    `https://dummyjson.com/products?limit=${limit}`,
+    `https://dummyjson.com/products/search?q=${query}&limit=${limit}`,
+    "GET"
+  );
+  return getProducts(response);
+};
+
+const SearchProductQuery = async (query: string) => {
+  const response = await requestData(
+    `https://dummyjson.com/products/search?q=${query}`,
     "GET"
   );
   return getProducts(response);
@@ -17,4 +30,5 @@ const GetPerPageProductsClient = async (limit: number) => {
 export default {
   GetAllProductsClient,
   GetPerPageProductsClient,
+  SearchProductQuery,
 };

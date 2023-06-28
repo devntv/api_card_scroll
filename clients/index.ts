@@ -1,1 +1,1 @@
-export { default as GetProductClient } from "./GetProductsClient";
+export { default as ProductClient } from "./GetProductsClient";

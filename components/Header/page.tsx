@@ -1,8 +1,8 @@
 "use client"
 import { Logo } from "@/Logo/page"
+import DEFAULT_TEXT_HEADER from "@data/headerData"
+import useTextHeaderDelay from "@hooks/useTextHeaderDelay"
 import { Grid, Typography } from "@mui/material"
-import { DEFAULT_TEXT_HEADER } from '../../data'
-import useTextHeaderDelay from '../../hooks/useTextHeaderDelay'
 import stylesHeader from './stylesHeader.module.css'
 
 const Header: React.FC = () => {
