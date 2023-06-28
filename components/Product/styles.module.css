@@ -65,6 +65,7 @@
 
 .cardCtn {
     animation: scale 0.5 linear;
+    min-width: 320px;
 }
 
 @keyframes scale {
