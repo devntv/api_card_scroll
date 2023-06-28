@@ -1,13 +1,13 @@
 "use client"
 import Loading from '@/Loading';
 import Product from '@/Product/page';
+import { ProductClient } from '@clients/index';
+import { DEFAULT_FETCH_LIMIT, DEFUALUT_FETCH_LOADMORE } from '@constants/defaultNumb';
+import useDebounce from '@hooks/useDebounce';
 import { Box, Grid, TextField } from '@mui/material';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { v4 as uuidv4 } from 'uuid';
-import GetProductsClient from '../../clients/GetProductsClient';
-import { DEFAULT_FETCH_LIMIT, DEFUALUT_FETCH_LOADMORE } from '../../constants';
-import { useDebounce } from '../../hooks/useDebounce';
 import styles from './styles.module.css';
 
 interface Product {
@@ -26,7 +26,7 @@ interface Product {
 
 const BodyData: React.FC = () => {
     const loadMoreRef = useRef<HTMLDivElement>(null)
-    const [loading, setLoading] = useState(false)
+    const [value, setValue] = useState<string | number>('')
     const [loadMore, setLoadMore] = useState(false)
     const [limit, setLimit] = useState(DEFAULT_FETCH_LIMIT)
     const [products, setProducts] = useState<Product[]>([]);
@@ -34,25 +34,25 @@ const BodyData: React.FC = () => {
     const debouncedLimit = useDebounce(limit, 1500)
     const getProduct = useCallback(async () => {
         try {
-            setLoading(true)
-            const response = await GetProductsClient.GetPerPageProductsClient(debouncedLimit)
+            const response = await ProductClient.GetPerPageProductsClient(debouncedLimit, value)
             if (response) {
                 setProducts(response)
+                setLoadMore(true)
             }
-            setLoading(false)
-            setLoadMore(true)
         } catch (error) {
             console.log(error)
         }
-    }, [debouncedLimit])
-    useEffect(() => {
+    }, [debouncedLimit, value])
 
+    useEffect(() => {
         getProduct()
     }, [getProduct])
     console.log('ad', products)
-    const loadMoreData = () => {
+    // console.log('render');
+
+    const loadMoreData = useCallback(() => {
         setLimit(prev => prev + DEFUALUT_FETCH_LOADMORE)
-    }
+    }, [])
 
     useEffect(() => {
         if (loadMore && loadMoreRef.current) {
@@ -60,19 +60,42 @@ const BodyData: React.FC = () => {
                 if (entries[0].isIntersecting) {
                     loadMoreData()
                 }
-
             }, { threshold: 1 })
             observer.observe(loadMoreRef.current)
         }
+    }, [loadMore, loadMoreData])
 
-    }, [loadMore])
+    // hooks
+    // const observeLoadMore = useInfiniteScroll(loadMoreData, {
+    //     threshold: 1,
+    // });
+    // useEffect(() => {
+    //     if (loadMore && loadMoreRef.current) {
+    //         observeLoadMore(loadMoreRef.current);
+    //     }
+    // }, [loadMore, observeLoadMore]);
+    useEffect(() => {
+        async function search() {
+            const r = await ProductClient.SearchProductQuery('')
+            // console.log('se', r)
+        }
+        search()
+    }, [debouncedLimit])
+    const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value)
+    }
+
+
     return (
         <>
             <Grid container className={styles.bodyctn}>
                 <Grid item xs={12} style={{ display: 'flex', padding: '20px' }} justifyContent='center' alignItems='center' >
                     <TextField
                         className={styles.input}
-                        label="Multiline"
+                        value={value}
+                        label="search"
+                        onChange={handleChangeText}
+                        placeholder="input something..."
                         sx={{ input: { color: 'white' }, fieldset: { borderColor: "#ffffff2e" }, label: { color: 'white' } }}
                         id="outlined-basic"
                         variant="outlined" />
@@ -93,10 +116,9 @@ const BodyData: React.FC = () => {
                     ))}
 
                 </Grid>
-                <Grid>
-                    <div ref={loadMoreRef} />
+                <div ref={loadMoreRef} >
                     <Loading content='loading' />
-                </Grid>
+                </div>
             </Grid >
 
 
