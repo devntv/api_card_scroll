@@ -1,5 +1,9 @@
 # Burningbros assignment
 
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb1.png)
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb2.png)
+![result](https://github.com/devntv/burningbross_assignment/blob/feature/update-readme/public/images/bb3.png)
+
 ### main Tech Stack:
 
 `react` `mui`, `next`
