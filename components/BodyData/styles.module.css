@@ -76,6 +76,16 @@
     display: none !important;
 }
 
+.hideLoadMore {
+    display: none;
+}
+
+.notfound {
+    color: white;
+    text-align: center;
+    width: 100%
+}
+
 .tableCtn {
     display: flex;
     padding: 20px 40px 40px 40px;
@@ -88,6 +98,7 @@
 .productCtn {
     display: flex;
     margin-top: 20px;
+    width: 100%;
 }
 
 .product {
