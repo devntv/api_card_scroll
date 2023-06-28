@@ -31,13 +31,17 @@ const BodyData: React.FC = () => {
     const [loadMore, setLoadMore] = useState(false)
     const [limit, setLimit] = useState(DEFAULT_FETCH_LIMIT)
     const [products, setProducts] = useState<Product[]>([]);
+    const [notFoundLimit, setNotFoundLimit] = useState<number>()
+
+
     const debouncedLimit = useDebounce(limit, 1000)
     const debouncedSearch = useDebounce(value, 1000);
 
     const getProduct = useCallback(async () => {
         try {
             const response = await ProductClient.GetPerPageProductsClient(debouncedLimit, debouncedSearch)
-            const { total } = response
+            const { total, limit: limitResponse } = response
+            setNotFoundLimit(limitResponse)
             const products = getProducts(response)
             if (response) {
                 setProducts(products || [])
@@ -70,9 +74,7 @@ const BodyData: React.FC = () => {
         }
 
         return () => {
-            if (loadMoreRef.current) {
-                observer.unobserve(loadMoreRef.current);
-            }
+            if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
         };
     }, [loadMore, loadMoreData])
 
@@ -88,18 +90,17 @@ const BodyData: React.FC = () => {
 
     const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
-
     }
     return (
         <>
             <Grid container className={styles.bodyctn}>
-                <Grid item xs={12} style={{ display: 'flex', padding: '20px' }} justifyContent='center' alignItems='center' >
+                <Grid item xs={12} style={{ display: 'flex', padding: '20px', marginBottom: '30px' }} justifyContent='center' alignItems='center' >
                     <TextField
                         className={styles.input}
                         type="search"
                         label="search"
                         onChange={handleChangeText}
-                        placeholder="input something..."
+                        placeholder="input something...."
                         sx={{ input: { color: 'white' }, fieldset: { borderColor: "#ffffff2e" }, label: { color: 'white' } }}
                         id="outlined-basic"
                         variant="outlined"
@@ -111,11 +112,11 @@ const BodyData: React.FC = () => {
                 </Grid>
                 <Grid container item className={styles.productCtn} spacing={2}>
                     {products?.map((product) => (
-                        <Grid item key={uuidv4()} lg={3} xs={6} md={4} className={styles.product} alignItems='center' justifyContent='center'>
+                        <Grid item key={uuidv4()} xs={12} sm={6} lg={4} md={5} xl={3} className={styles.product} alignItems='center' justifyContent='center'>
                             <Product {...product} />
                         </Grid>
                     ))}
-                    {products?.length <= 0 && <Typography className={styles.notfound} >Not found result.</Typography>}
+                    {notFoundLimit && notFoundLimit <= 0 && <Typography className={styles.notfound} >Not found result.</Typography>}
                 </Grid>
                 <div ref={loadMoreRef}  >
                     {loadMore && <Loading content='loading' />}

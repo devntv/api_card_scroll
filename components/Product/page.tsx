@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
@@ -30,7 +31,7 @@ const Product: React.FC<ProductProps> = ({ id, thumbnail, price, title, brand, r
     return (
         <Card variant="outlined" sx={{ width: 320 }} className={styles.cardCtn}>
             <div>
-                <Typography level="h2" fontSize="md" sx={{ mb: 0.5, maxWidth: '180' }}>
+                <Typography level="h2" fontSize="md" sx={{ mb: 0.5, maxWidth: '180px !important' }}>
                     {title}
                 </Typography>
                 <Rating value={rating} readOnly />
@@ -50,18 +51,8 @@ const Product: React.FC<ProductProps> = ({ id, thumbnail, price, title, brand, r
                     loading="lazy"
                     alt={`products-${id}`}
                 />
-
-                {/* <Image
-                    src={thumbnail}
-                    width={100}
-                    height={100}
-                    loading="lazy"
-                    alt={`products-${id}`}
-                    style={{ objectFit: "cover" }}
-                /> */}
             </AspectRatio>
             <Box className={styles.ctnImgslider}>
-
                 {images.map((image, i) => (
                     <div key={i} className={styles.itemSlider}>
                         <img src={image} loading="lazy" alt={`productSlider-${i}`} />
@@ -72,7 +63,6 @@ const Product: React.FC<ProductProps> = ({ id, thumbnail, price, title, brand, r
                 <div>
                     <Box className={styles.desc}>
                         <Tooltip color="primary" title={description} variant="plain" arrow>
-
                             <Typography>{description}</Typography>
                         </Tooltip>
                     </Box>
@@ -82,27 +72,23 @@ const Product: React.FC<ProductProps> = ({ id, thumbnail, price, title, brand, r
                             color="primary"
                             // onClick={() => alert(``)}
                             size='sm'
-
                         >{category}</Chip>
                         <Chip
 
                             color="primary"
                             sx={{ marginLeft: '4px' }}
                             size='sm'
-
                         >{brand}</Chip>
                     </Box>
                     <Typography level="body3">Total price:</Typography>
                     <Box>
                         <Typography className={styles.Oriprice} >{`$ ${originalPrice}`}</Typography>
-
                         <Typography fontSize="lg" fontWeight="lg" className={styles.price}>
                             {`$ ${price}`}
                         </Typography>
                     </Box>
                     <Typography className={styles.stock}>{`available: ${stock}`}</Typography>
                 </div>
-
             </CardContent>
         </Card>
     )

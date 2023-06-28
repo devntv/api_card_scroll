@@ -1,7 +1,6 @@
 .bodyctn {
     position: relative;
     width: 100vw;
-    margin-top: 30px;
     z-index: 99
 }
 
@@ -99,6 +98,7 @@
     display: flex;
     margin-top: 20px;
     width: 100%;
+    justify-content: center;
 }
 
 .product {
